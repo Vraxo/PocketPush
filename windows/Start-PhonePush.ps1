@@ -1,9 +1,10 @@
-﻿# PocketPush Windows receiver - Windows PowerShell 5.1 or newer.
+﻿# PocketPush Windows HTTPS receiver - Windows PowerShell 5.1 or newer.
 # Receives individual files over the local network and never deletes phone originals.
 
 $ErrorActionPreference = 'Stop'
 $Port = 8765
 $SettingsPath = Join-Path $PSScriptRoot 'settings.json'
+$CaExportPath = Join-Path $PSScriptRoot 'PocketPush-Local-CA.cer'
 
 function New-RandomToken {
     $bytes = New-Object byte[] 24
@@ -89,7 +90,6 @@ function Move-ToUniquePath {
         else { $candidateName = '{0} ({1}){2}' -f $baseName, $index, $extension }
         $candidatePath = Join-Path $Directory $candidateName
         try {
-            # File.Move without overwrite is intentional: existing files are never replaced.
             [System.IO.File]::Move($TemporaryPath, $candidatePath)
             return $candidatePath
         }
@@ -114,7 +114,7 @@ function Test-Token {
 
 Write-Host ''
 Write-Host '  PocketPush' -ForegroundColor Green
-Write-Host '  Local file receiver' -ForegroundColor DarkGray
+Write-Host '  Encrypted local file receiver' -ForegroundColor DarkGray
 Write-Host ''
 
 if (-not (Test-Path -LiteralPath $SettingsPath)) {
@@ -149,14 +149,19 @@ $destinationDirectory = [System.IO.Path]::GetFullPath($destinationDirectory)
 [System.IO.Directory]::CreateDirectory($destinationDirectory) | Out-Null
 Get-ChildItem -LiteralPath $destinationDirectory -Filter '.phonepush-*.tmp' -File -ErrorAction SilentlyContinue | Remove-Item -Force -ErrorAction SilentlyContinue
 
+if (-not (Test-Path -LiteralPath $CaExportPath)) {
+    Write-Host 'PocketPush-Local-CA.cer was not found beside the receiver.' -ForegroundColor Yellow
+    Write-Host 'The Windows receiver may still work, but Android needs this CA certificate to trust HTTPS.' -ForegroundColor Yellow
+}
+
 $listener = New-Object System.Net.HttpListener
-$listener.Prefixes.Add("http://+:$Port/")
+$listener.Prefixes.Add("https://+:$Port/")
 try {
     $listener.Start()
 }
 catch {
-    Write-Host 'Could not start the receiver.' -ForegroundColor Red
-    Write-Host 'Run Install-PocketPush.cmd once (it requests administrator permission), then try again.' -ForegroundColor Yellow
+    Write-Host 'Could not start the HTTPS receiver.' -ForegroundColor Red
+    Write-Host 'Run Install-PocketPush.cmd once as administrator to create the HTTPS certificate binding and URL reservation, then try again.' -ForegroundColor Yellow
     Write-Host "Details: $($_.Exception.Message)" -ForegroundColor DarkGray
     Read-Host 'Press Enter to close' | Out-Null
     exit 1
@@ -165,14 +170,21 @@ catch {
 $addresses = Get-NetworkIPv4Addresses
 Write-Host 'Receiver is running.' -ForegroundColor Green
 Write-Host "Destination: $destinationDirectory" -ForegroundColor Gray
-Write-Host "Port:        $Port" -ForegroundColor Gray
+Write-Host "Transport:   HTTPS on port $Port" -ForegroundColor Gray
 Write-Host ''
 if ($addresses.Count -eq 0) {
     Write-Host 'No active IPv4 address was found. Connect this PC to your Wi-Fi/LAN.' -ForegroundColor Yellow
 }
 else {
-    Write-Host 'Enter one of these addresses in the PocketPush app:' -ForegroundColor Cyan
-    foreach ($address in $addresses) { Write-Host "  http://${address}:$Port" -ForegroundColor White }
+    Write-Host 'Enter one of these IP addresses in the PocketPush app:' -ForegroundColor Cyan
+    foreach ($address in $addresses) { Write-Host "  $address" -ForegroundColor White }
+}
+Write-Host ''
+if (Test-Path -LiteralPath $CaExportPath) {
+    $caHash = (Get-FileHash -LiteralPath $CaExportPath -Algorithm SHA256).Hash
+    Write-Host 'Android CA certificate:' -ForegroundColor Cyan
+    Write-Host "  $CaExportPath" -ForegroundColor White
+    Write-Host "  SHA-256: $caHash" -ForegroundColor DarkGray
 }
 Write-Host ''
 Write-Host 'Pairing key (enter this once in the phone app):' -ForegroundColor Cyan
@@ -211,7 +223,8 @@ try {
                     ok = $true
                     computer = $env:COMPUTERNAME
                     destination = [System.IO.Path]::GetFileName($destinationDirectory.TrimEnd('\'))
-                    version = '1.1.2'
+                    version = '1.2.1'
+                    transport = 'https'
                 }
                 continue
             }

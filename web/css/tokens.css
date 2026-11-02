@@ -1,0 +1,34 @@
+:root {
+  color-scheme: dark;
+  /* Monokai Pro — default filter palette */
+  --mp-bg: #2D2A2E;
+  --mp-bg-deep: #221F22;
+  --mp-surface: #363437;
+  --mp-surface-raised: #403E41;
+  --mp-surface-hover: #4A474B;
+  --mp-border: #525053;
+  --mp-muted: #939293;
+  --mp-dim: #727072;
+  --mp-white: #FCFCFA;
+  --mp-red: #FF6188;
+  --mp-orange: #FC9867;
+  --mp-yellow: #FFD866;
+  --mp-green: #A9DC76;
+  --mp-cyan: #78DCE8;
+  --mp-purple: #AB9DF2;
+  --bg: var(--mp-bg);
+  --panel: var(--mp-surface);
+  --panel-2: var(--mp-surface-raised);
+  --line: var(--mp-border);
+  --text: var(--mp-white);
+  --muted: var(--mp-muted);
+  --faint: var(--mp-dim);
+  --accent: var(--mp-green);
+  --danger: var(--mp-red);
+  --radius: 17px;
+  font-family: "Segoe UI Variable", "Segoe UI", Roboto, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-synthesis: none;
+  font-kerning: normal;
+  font-optical-sizing: auto;
+  text-rendering: auto;
+}

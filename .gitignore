@@ -1,10 +1,17 @@
-# Local receiver configuration contains the pairing secret.
+# Local receiver settings contain the pairing secret.
 windows/settings.json
 
 # Default incoming folder should never be committed.
 windows/Incoming/
 
-# Incomplete uploads, temporary/editor files.
+# Machine-specific certificate exports and private-key backups.
+windows/PocketPush-Local-CA.cer
+windows/*.pfx
+windows/*.p12
+windows/*.cer
+windows/*.crt
+
+# Temporary files and operating-system metadata.
 *.tmp
 *.bak
 .DS_Store

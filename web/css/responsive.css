@@ -1,0 +1,48 @@
+@media (min-width: 760px) {
+  .shell { padding-top: 27px; }
+  .intro { min-height: 219px; padding-top: 29px; padding-bottom: 31px; }
+  .intro-art { margin-right: 83px; transform: scale(1.04); }
+  .workspace { gap: 17px; }
+  .card { padding: 22px; }
+  .disclosure-card { padding: 0; }
+  .disclosure-summary { padding-right: 17px; padding-left: 17px; }
+  .disclosure-content { padding-right: 17px; padding-left: 17px; }
+}
+@media (max-width: 759px) {
+  .shell { width: min(100% - 30px, 560px); }
+  .intro { min-height: 174px; padding: 25px 0 23px; }
+  .intro-art { width: 135px; height: 125px; flex-basis: 135px; margin-right: -7px; transform: scale(.77); transform-origin: right center; }
+  .intro h1 { font-size: clamp(35px, 9vw, 45px); }
+  .intro-description { max-width: 290px; font-size: 13px; }
+  .workspace { grid-template-columns: minmax(0, 1fr); gap: 13px; }
+  .side-column { grid-row: 1; }
+  .main-column { grid-row: 2; }
+  .connection-panel { order: 0; }
+  .options-panel { order: 1; }
+  .privacy-card { display: none; }
+  .card { padding: 16px; }
+  .disclosure-card { padding: 0; }
+  .disclosure-summary { min-height: 62px; padding: 11px 13px; }
+  .disclosure-content { padding: 0 13px 14px; }
+  .options-content { padding-top: 3px; }
+  .footer { align-items: flex-start; font-size: 9px; }
+  .footer-links { gap: 10px; }
+  .transfer-metrics { font-size: 10px; }
+}
+@media (max-width: 390px) {
+  .shell { width: calc(100% - 24px); }
+  .intro-art { width: 105px; flex-basis: 105px; margin-right: -12px; transform: scale(.67); }
+  .intro h1 { font-size: 37px; letter-spacing: -.35px; }
+  .intro-description { max-width: 230px; }
+  .card { padding: 14px; }
+  .disclosure-card { padding: 0; }
+  .count-badge { padding-right: 7px; padding-left: 7px; font-size: 10px; }
+  .source-row { gap: 7px; padding: 9px 8px; }
+  .source-icon { width: 28px; height: 28px; flex-basis: 28px; }
+  .small-button { padding: 0 7px; }
+  .send-button { min-width: 205px; min-height: 54px; padding: 9px 12px; }
+  .send-button-copy strong { font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}

@@ -2,7 +2,7 @@
   "id": "./",
   "name": "PocketPush - Phone to PC",
   "short_name": "PocketPush",
-  "description": "Send files from saved phone folders to your PC over your local network.",
+  "description": "Send files directly from saved phone folders to your PC over an encrypted local connection.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

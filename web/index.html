@@ -4,18 +4,25 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#2D2A2E">
-  <meta name="description" content="Send files from saved Android folders to your Windows PC over your local network.">
+  <meta name="description" content="Send files from saved Android folders to your Windows PC over an encrypted local connection.">
   <title>PocketPush</title>
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="stylesheet" href="./styles.css">
-  <script src="./app.js" defer></script>
+  <link rel="stylesheet" href="./css/tokens.css">
+  <link rel="stylesheet" href="./css/base.css">
+  <link rel="stylesheet" href="./css/layout.css">
+  <link rel="stylesheet" href="./css/components.css">
+  <link rel="stylesheet" href="./css/transfer.css">
+  <link rel="stylesheet" href="./css/utilities.css">
+  <link rel="stylesheet" href="./css/responsive.css">
+  <script type="module" src="./js/app.js"></script>
 </head>
 <body>
   <div class="ambient ambient-one" aria-hidden="true"></div>
   <div class="ambient ambient-two" aria-hidden="true"></div>
 
   <main class="shell">
+    <!-- Header and brand -->
     <header class="topbar">
       <a class="brand" href="./" aria-label="PocketPush home">
         <span class="brand-mark" aria-hidden="true">
@@ -28,14 +35,15 @@
           <span class="brand-caption">PHONE <span>→</span> PC</span>
         </span>
       </a>
-      <div class="local-indicator"><span class="local-dot"></span><span>LOCAL ONLY</span></div>
+      <div class="local-indicator"><span class="local-dot"></span><span>LOCAL TRANSFER</span></div>
     </header>
 
+    <!-- Intro / product statement -->
     <section class="intro">
       <div class="intro-copy">
         <p class="eyebrow"><span class="eyebrow-line"></span> YOUR PERSONAL FILE BRIDGE</p>
         <h1>Send it.<br><span>That's it.</span></h1>
-        <p class="intro-description">Your folders, one button, straight to your PC. No syncing, no cloud, no fuss.</p>
+        <p class="intro-description">Your files go directly from your phone to your PC. Nothing is uploaded to PocketPush hosting.</p>
       </div>
       <div class="intro-art" aria-hidden="true">
         <div class="art-orbit orbit-outer"></div>
@@ -48,6 +56,7 @@
       </div>
     </section>
 
+    <!-- Main workspace: sources, transfer, connection and options -->
     <div class="workspace">
       <div class="main-column">
         <section class="card sources-card" aria-labelledby="sources-heading">
@@ -121,6 +130,11 @@
             <span id="transfer-counter" class="count-badge">0 / 0</span>
           </div>
           <div class="progress-track"><div id="progress-fill" class="progress-fill"></div></div>
+          <div class="transfer-metrics" aria-live="off">
+            <span id="transfer-bytes">0 B / 0 B</span>
+            <span id="transfer-speed">—</span>
+            <span id="transfer-eta">— remaining</span>
+          </div>
           <div id="transfer-results" class="transfer-results"></div>
           <button id="retry-failed" class="button button-outline button-wide hidden" type="button">Retry failed files</button>
         </section>
@@ -139,7 +153,7 @@
           <div class="disclosure-content">
             <label class="field-label" for="server-url">PC IP ADDRESS</label>
             <input id="server-url" class="text-input" type="text" inputmode="decimal" autocomplete="off" placeholder="192.168.1.104" spellcheck="false" autocapitalize="off">
-            <p class="field-hint">Port 8765 is added automatically. You can also paste the full address from Windows.</p>
+            <p class="field-hint">Port 8765 is automatic. Install the PocketPush CA certificate on Android once before connecting.</p>
             <label class="field-label" for="receiver-token">PAIRING KEY</label>
             <div class="token-row">
               <input id="receiver-token" class="text-input" type="password" autocomplete="off" placeholder="Paste the key from Windows" spellcheck="false">
@@ -149,7 +163,7 @@
             </div>
             <button id="test-connection" class="button button-secondary button-wide" type="button">Test &amp; save connection <span aria-hidden="true">→</span></button>
             <p id="connection-message" class="message" role="status">Start the receiver on Windows, then enter the address and pairing key it displays.</p>
-            <p class="security-note"><span aria-hidden="true">●</span> Local network only. Use a trusted private Wi-Fi network.</p>
+            <p class="security-note"><span aria-hidden="true">●</span> Encrypted local connection. A one-time Android certificate install is required.</p>
           </div>
         </details>
 
@@ -184,9 +198,14 @@
       </aside>
     </div>
 
+    <!-- Project links and version -->
     <footer class="footer">
-      <span>MADE FOR YOUR LOCAL NETWORK</span>
-      <span>POCKETPUSH <i>·</i> <span id="app-version">v1.1.2</span></span>
+      <span class="footer-note">MADE FOR YOUR LOCAL NETWORK</span>
+      <nav class="footer-links" aria-label="About PocketPush">
+        <a href="https://github.com/Vraxo/PocketPush" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+        <a href="https://github.com/Vraxo/PocketPush/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT License</a>
+        <span>POCKETPUSH <i>·</i> <span id="app-version">v1.2.1</span></span>
+      </nav>
     </footer>
   </main>
 

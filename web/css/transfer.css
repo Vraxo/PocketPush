@@ -1,0 +1,26 @@
+/* Review, progress, results */
+.review-panel { padding-bottom: 13px; }
+.review-toolbar { display: flex; align-items: center; justify-content: space-between; margin: -1px 1px 8px; }
+.review-label { color: var(--mp-dim); font-size: 10px; font-weight: 680; letter-spacing: .8px; }
+.review-toolbar > div { display: flex; align-items: center; gap: 7px; }
+.text-button { padding: 4px 0; border: 0; background: transparent; color: var(--mp-cyan); font-size: 11px; font-weight: 650; cursor: pointer; }
+.text-button:hover { color: var(--mp-white); }
+.toolbar-divider { color: var(--mp-dim); font-size: 9px; }
+.file-list { display: grid; max-height: 340px; gap: 0; overflow: auto; border-top: 1px solid #ffffff0d; }
+.file-row { display: flex; align-items: center; gap: 9px; padding: 9px 3px; border-bottom: 1px solid #ffffff0b; }
+.file-row:last-child { border-bottom: 0; }
+.file-row input { width: 15px; height: 15px; flex: 0 0 auto; margin: 0; accent-color: var(--mp-green); }
+.file-info { min-width: 0; flex: 1; }
+.file-name { display: block; overflow: hidden; color: var(--mp-white); font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+.file-path { display: block; overflow: hidden; margin-top: 3px; color: var(--mp-dim); font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+.file-size { color: var(--mp-muted); font-size: 10px; white-space: nowrap; }
+.progress-track { height: 5px; overflow: hidden; border-radius: 99px; background: #221F22; }
+.progress-fill { width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--mp-green), var(--mp-cyan)); box-shadow: 0 0 12px #A9DC7640; transition: width .12s linear; }
+.transfer-metrics { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 7px 12px; margin-top: 9px; color: var(--mp-dim); font-size: 11px; font-variant-numeric: tabular-nums; }
+.transfer-metrics span:first-child { color: var(--mp-white); font-weight: 620; }
+.transfer-current { max-width: 340px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.transfer-results { display: grid; max-height: 220px; gap: 6px; margin-top: 12px; overflow-y: auto; }
+.result-row { display: flex; align-items: flex-start; gap: 8px; color: var(--mp-muted); font-size: 11px; line-height: 1.55; overflow-wrap: anywhere; }
+.result-row.ok::before { color: var(--mp-green); content: "✓"; }
+.result-row.fail::before { color: var(--mp-red); content: "!"; }
+.transfer-panel .button-wide { margin-top: 13px; }

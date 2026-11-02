@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#171a22">
+  <meta name="description" content="Send files from saved Android folders to your Windows PC over your local network.">
+  <title>PhonePush</title>
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <main class="shell">
+    <header class="header">
+      <div class="brand-mark" aria-hidden="true">⇧</div>
+      <div class="brand-copy">
+        <h1>PhonePush</h1>
+        <p>Phone → PC · Local network only</p>
+      </div>
+      <div class="privacy-pill"><span class="led"></span> Local</div>
+    </header>
+
+    <section class="panel connection-panel" aria-labelledby="connection-heading">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">01 / CONNECTION</p>
+          <h2 id="connection-heading">Your PC</h2>
+        </div>
+        <span id="connection-state" class="state-badge state-unknown">Not tested</span>
+      </div>
+      <label class="field-label" for="server-url">Receiver address</label>
+      <input id="server-url" class="text-input" type="url" inputmode="url" autocomplete="url" placeholder="http://192.168.1.100:8765" spellcheck="false">
+      <label class="field-label" for="receiver-token">Pairing key</label>
+      <div class="token-row">
+        <input id="receiver-token" class="text-input" type="password" autocomplete="off" placeholder="Shown in the Windows receiver" spellcheck="false">
+        <button id="toggle-token" class="icon-button" type="button" aria-label="Show pairing key" title="Show pairing key">◉</button>
+      </div>
+      <div class="connection-actions">
+        <button id="test-connection" class="button button-secondary" type="button">Test connection</button>
+        <span class="micro-copy">The address and key are saved on this device.</span>
+      </div>
+      <p id="connection-message" class="message" role="status">Start the receiver on Windows, then enter the address and pairing key it displays.</p>
+      <p class="micro-copy security-note">Transfers go directly over your Wi-Fi. This first version does not encrypt LAN traffic; use a trusted private network.</p>
+    </section>
+
+    <section class="panel" aria-labelledby="sources-heading">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">02 / SOURCES</p>
+          <h2 id="sources-heading">Folders to send</h2>
+        </div>
+        <span id="source-count" class="count-badge">0 folders</span>
+      </div>
+      <p class="section-description">Choose each phone folder once. Enabled folders are included in every full transfer.</p>
+      <div id="source-list" class="source-list">
+        <div class="empty-state" id="empty-sources">
+          <div class="empty-icon">▱</div>
+          <strong>No folders configured</strong>
+          <span>Add Camera, Screenshots, Downloads, or any other folder.</span>
+        </div>
+      </div>
+      <button id="add-folder" class="button button-outline button-wide" type="button"><span class="plus">＋</span> Add source folder</button>
+      <p class="micro-copy folder-note">Folder access is granted by Android's folder picker. You can remove a source here at any time.</p>
+    </section>
+
+    <section class="panel options-panel" aria-labelledby="options-heading">
+      <div class="section-heading compact-heading">
+        <div>
+          <p class="eyebrow">03 / OPTIONS</p>
+          <h2 id="options-heading">Transfer behavior</h2>
+        </div>
+      </div>
+      <label class="option-row">
+        <span class="option-copy"><strong>Include subfolders</strong><small>Send files in nested folders, too.</small></span>
+        <input id="include-subfolders" type="checkbox" checked>
+        <span class="switch" aria-hidden="true"></span>
+      </label>
+      <div class="option-divider"></div>
+      <label class="option-row">
+        <span class="option-copy"><strong>Review before sending</strong><small>Preview the files and untick exceptions for this run.</small></span>
+        <input id="review-before-send" type="checkbox">
+        <span class="switch" aria-hidden="true"></span>
+      </label>
+      <p class="micro-copy">No transfer history is kept. Files still on your phone will be sent again next time. Phone originals are never deleted.</p>
+    </section>
+
+    <section id="review-panel" class="panel review-panel hidden" aria-labelledby="review-heading">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">REVIEW / THIS RUN ONLY</p>
+          <h2 id="review-heading">Files to send</h2>
+        </div>
+        <span id="review-count" class="count-badge">0 selected</span>
+      </div>
+      <div class="review-toolbar">
+        <button id="select-all" class="text-button" type="button">Select all</button>
+        <button id="select-none" class="text-button" type="button">Select none</button>
+      </div>
+      <div id="file-list" class="file-list"></div>
+    </section>
+
+    <section class="send-panel" aria-label="Send files">
+      <button id="send-all" class="send-button" type="button">
+        <span class="send-icon" aria-hidden="true">↗</span>
+        <span id="send-label">SEND ALL</span>
+      </button>
+      <p id="send-hint" class="send-hint">Copies the current contents of your enabled folders to your PC.</p>
+    </section>
+
+    <section id="transfer-panel" class="panel transfer-panel hidden" aria-labelledby="transfer-heading" aria-live="polite">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">TRANSFER</p>
+          <h2 id="transfer-heading">Sending files</h2>
+        </div>
+        <span id="transfer-counter" class="count-badge">0 / 0</span>
+      </div>
+      <div class="progress-track"><div id="progress-fill" class="progress-fill"></div></div>
+      <p id="transfer-current" class="message">Preparing…</p>
+      <div id="transfer-results" class="transfer-results"></div>
+      <button id="retry-failed" class="button button-outline button-wide hidden" type="button">Retry failed files</button>
+    </section>
+
+    <footer class="footer">
+      <span>PhonePush · No cloud · No sync · No deletion</span>
+      <span id="app-version">v1.0.0</span>
+    </footer>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

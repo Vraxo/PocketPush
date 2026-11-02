@@ -1,0 +1,11 @@
+# Local receiver configuration contains the pairing secret.
+windows/settings.json
+
+# Default incoming folder should never be committed.
+windows/Incoming/
+
+# Incomplete uploads, temporary/editor files.
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db

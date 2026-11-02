@@ -1,6 +1,10 @@
-# PhonePush
+# PocketPush
 
-**PhonePush** is a deliberately simple Android-to-Windows folder sender. Pick phone folders once, then send their current contents to one Windows folder with one button.
+**Current release: 1.1.2** — refined typography, a more compact Send All action, and simpler PC address entry.
+
+**PocketPush** is a deliberately simple Android-to-Windows folder sender. Pick phone folders once, then send their current contents to one Windows folder with one button.
+
+This release improves desktop readability, makes the Send All button more compact, and simplifies PC address entry. Enter only the PC IP address (for example, `192.168.1.104`); PocketPush adds `http://` and port `8765` automatically. You can also paste the full address printed by Windows. Existing installs retain their saved folders and connection settings.
 
 - Android side: installable Progressive Web App (PWA), designed for current Chrome on Android.
 - Windows side: a small PowerShell receiver included in this folder.
@@ -27,15 +31,27 @@ It intentionally does **not** remember what has been sent before. Files left on 
 - Windows PowerShell 5.1 or newer (included with Windows).
 - **Chrome 142 or newer on Android is required** for the HTTPS PWA to contact the local HTTP receiver using Chrome's Local Network Access permission flow.
 
+## Updating an existing installation
+
+If you already run PocketPush 1.1.1, this is a **web-only update**. You do not need to change Windows, re-pair, or reselect your Android folders.
+
+1. Replace the `web` folder in your GitHub repository with the `web` folder from this package, then commit and push.
+2. Wait for GitHub Pages to finish deploying, then reopen PocketPush on Android. The service worker will replace its previous cached app files.
+3. Your saved PC address, pairing key, and folder handles remain intact. The address is now displayed as a plain IP; port `8765` is added automatically.
+
+For older PhonePush installations, the legacy browser storage identifiers and receiver HTTP header are still retained, so the PWA can also be updated in place. Keep your Windows `settings.json` untouched. The existing Windows receiver does not need to be replaced for this release.
+
+The older `Start-PhonePush.cmd` and `Install-Windows-Setup.cmd` launchers remain usable. The `X-PhonePush-Token` header and IndexedDB names are intentionally retained internally for compatibility.
+
 ## Part A — publish the PWA (free static hosting)
 
 The PWA needs an HTTPS origin to access Android folders and connect to your local receiver. The easiest route is free GitHub Pages. GitHub Pages hosts only the static app files; no phone files are uploaded to GitHub.
 
-1. Create a GitHub repository named `PhonePush` (a public repository is the simplest way to use GitHub Pages for free).
+1. Use your existing GitHub repository: [Vraxo/PocketPush](https://github.com/Vraxo/PocketPush).
 2. Put the contents of this project folder in the repository root. Keep the `web` folder and `.github/workflows/pages.yml` in their existing locations.
 3. In the repository, open **Settings → Pages** and set the build/deployment source to **GitHub Actions**.
-4. Push to the `main` branch (or use **Actions → Deploy PhonePush PWA → Run workflow**). The included workflow publishes the contents of `web`.
-5. Open the resulting `https://<your-account>.github.io/PhonePush/` address in Chrome on Android.
+4. Push to the `main` branch (or use **Actions → Deploy PocketPush PWA → Run workflow**). The included workflow publishes the contents of `web`.
+5. Open the resulting `https://vraxo.github.io/PocketPush/` address in Chrome on Android.
 6. In Chrome's menu, choose **Add to Home screen** or **Install app**.
 
 After the first successful visit, the service worker caches the app shell. The installed PWA can open offline. Internet is only needed for the initial visit/install and later app updates. The Windows receiver and the files transferred never use GitHub Pages.
@@ -44,12 +60,12 @@ After the first successful visit, the service worker caches the app shell. The i
 
 ## Part B — prepare Windows (one time)
 
-1. Copy the `windows` folder to a permanent location on your PC, e.g. `C:\\Tools\\PhonePush`.
-2. Double-click `Install-Windows-Setup.cmd`. Approve the administrator prompt. This creates:
+1. Copy the `windows` folder to a permanent location on your PC, e.g. `C:\\Tools\\PocketPush`.
+2. Double-click `Install-PocketPush.cmd`. Approve the administrator prompt. This creates:
    - an HTTP.sys URL reservation for the current Windows account on port `8765`;
    - a Windows Firewall inbound rule for TCP `8765`, limited to the **Private** profile and the local subnet.
 3. If Windows marks your trusted home network as **Public**, change it to **Private** in **Settings → Network & Internet → Wi-Fi/Ethernet → your connected network → Network profile type**.
-4. Double-click `Start-PhonePush.cmd` normally (not as administrator).
+4. Double-click `Start-PocketPush.cmd` normally (not as administrator).
 5. On first launch, enter your desired PC destination directory. For example, you can enter the same folder you currently use for LocalSend. Press Enter to use an `Incoming` folder alongside the receiver scripts.
 6. The receiver prints one or more addresses such as `http://192.168.1.100:8765` and a long pairing key. Keep this window open while sending.
 
@@ -57,10 +73,10 @@ The first run creates `windows/settings.json` containing the destination and pai
 
 ## Part C — pair Android and choose folders
 
-1. Open the installed PhonePush app.
+1. Open the installed PocketPush app.
 2. Enter one of the receiver URLs printed in the Windows console, e.g. `http://192.168.1.100:8765`.
 3. Enter the pairing key printed by the receiver.
-4. Tap **Test connection**. Chrome may ask whether PhonePush can access devices on your local network. Allow it.
+4. Tap **Test connection**. Chrome may ask whether PocketPush can access devices on your local network. Allow it.
 5. Tap **Add source folder** and choose a phone folder (e.g. `DCIM/Camera`). Repeat for other folders.
 6. Leave the desired folders enabled. Tap **SEND ALL**.
 
@@ -68,8 +84,8 @@ The first time you use a saved folder handle after a browser restart, Chrome may
 
 ## Everyday use
 
-1. Start `Start-PhonePush.cmd` on Windows.
-2. Open PhonePush on Android.
+1. Start `Start-PocketPush.cmd` on Windows.
+2. Open PocketPush on Android.
 3. Tap **SEND ALL**.
 4. Keep the Windows receiver window open until the transfer finishes.
 
@@ -94,7 +110,7 @@ The **Review before sending** option is off by default, so the normal workflow i
 - Use the exact current `http://...:8765` address printed by the receiver. The PC's address can change after reconnecting to Wi-Fi.
 - Make sure both devices are on the same non-guest Wi-Fi/LAN.
 - Confirm the Windows network profile is Private.
-- Re-run `Install-Windows-Setup.cmd` if the firewall or URL reservation was not configured.
+- Run `Install-PocketPush.cmd` if the firewall rule or URL reservation was not configured.
 - In Chrome, check the installed site's permissions and allow **Local network** access.
 
 **Folder access needs renewal**
@@ -103,7 +119,7 @@ Tap **Access** beside the relevant source folder. If that fails, remove and add 
 
 **A file arrived with `(1)` in its name**
 
-A file with that name already existed in the destination. PhonePush avoids overwriting it. It does not attempt to determine whether the existing file is identical.
+A file with that name already existed in the destination. PocketPush avoids overwriting it. It does not attempt to determine whether the existing file is identical.
 
 **The app does not offer a folder picker**
 
@@ -112,8 +128,10 @@ Open it in current Chrome for Android, from its HTTPS address or installed PWA. 
 ## Project layout
 
 - `web/` — static PWA.
-- `windows/Start-PhonePush.ps1` — Windows HTTP receiver.
+- `windows/Start-PhonePush.ps1` — Windows HTTP receiver (legacy filename retained for existing installations).
+- `windows/Start-PocketPush.cmd` — branded receiver launcher.
 - `windows/Install-Windows-Setup.ps1` — one-time URL reservation and firewall setup.
+- `windows/Install-PocketPush.cmd` — branded setup launcher.
 - `.github/workflows/pages.yml` — optional free GitHub Pages deployment workflow.
 
 ## Limitations of v1
@@ -122,7 +140,7 @@ Open it in current Chrome for Android, from its HTTPS address or installed PWA. 
 - Folders are flattened into the single destination directory. Duplicate names are automatically renamed rather than overwritten.
 - The app does not preserve the source subfolder tree on the PC.
 - No file history or deduplication exists by design.
-- Large transfers require the PWA tab to remain open and the phone to stay awake. Android may pause background tabs; keep PhonePush in the foreground until it finishes.
+- Large transfers require the PWA tab to remain open and the phone to stay awake. Android may pause background tabs; keep PocketPush in the foreground until it finishes.
 - No background or automatic retry is attempted. The app offers a manual **Retry failed files** button for the failed items from the current run; if the app closes, those temporary retry details are discarded.
 
 ## License

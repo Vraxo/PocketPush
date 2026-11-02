@@ -1,4 +1,4 @@
-const CACHE_NAME = 'phonepush-static-v1';
+const CACHE_NAME = 'pocketpush-static-v4';
 const APP_SHELL = [
   './',
   './index.html',
@@ -22,7 +22,7 @@ self.addEventListener('install', (event) => {
 self.addEventListener('activate', (event) => {
   event.waitUntil((async () => {
     const keys = await caches.keys();
-    await Promise.all(keys.filter((key) => key.startsWith('phonepush-static-') && key !== CACHE_NAME).map((key) => caches.delete(key)));
+    await Promise.all(keys.filter((key) => (key.startsWith('phonepush-static-') || key.startsWith('pocketpush-static-')) && key !== CACHE_NAME).map((key) => caches.delete(key)));
     await self.clients.claim();
   })());
 });

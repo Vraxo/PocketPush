@@ -1,6 +1,7 @@
 ﻿$ErrorActionPreference = 'Stop'
 $Port = 8765
-$RuleName = 'PhonePush Receiver (TCP 8765)'
+$RuleName = 'PocketPush Receiver (TCP 8765)'
+$LegacyRuleName = 'PhonePush Receiver (TCP 8765)'
 
 $principal = [System.Security.Principal.WindowsPrincipal]::new([System.Security.Principal.WindowsIdentity]::GetCurrent())
 $isAdministrator = $principal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::Administrator)
@@ -11,7 +12,7 @@ if (-not $isAdministrator) {
 }
 
 $identity = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
-Write-Host 'Configuring PhonePush for the current Windows account...' -ForegroundColor Cyan
+Write-Host 'Configuring PocketPush for the current Windows account...' -ForegroundColor Cyan
 
 # HttpListener uses HTTP.sys. Reserve the URL prefix for the account that will run the receiver.
 $existing = & netsh.exe http show urlacl "url=http://+:$Port/" 2>&1 | Out-String
@@ -28,6 +29,7 @@ else {
 }
 
 # Limit the inbound rule to the Private profile and the local subnet.
+Get-NetFirewallRule -DisplayName $LegacyRuleName -ErrorAction SilentlyContinue | Remove-NetFirewallRule
 Get-NetFirewallRule -DisplayName $RuleName -ErrorAction SilentlyContinue | Remove-NetFirewallRule
 New-NetFirewallRule -DisplayName $RuleName -Direction Inbound -Action Allow -Protocol TCP -LocalPort $Port -Profile Private -RemoteAddress LocalSubnet | Out-Null
 
@@ -42,5 +44,5 @@ foreach ($profile in $profiles) {
     }
 }
 Write-Host ''
-Write-Host 'You can now close this window and start Start-PhonePush.cmd normally.' -ForegroundColor Green
+Write-Host 'You can now close this window and start Start-PocketPush.cmd normally.' -ForegroundColor Green
 Read-Host 'Press Enter to close' | Out-Null

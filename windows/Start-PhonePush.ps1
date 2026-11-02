@@ -1,4 +1,4 @@
-﻿# PhonePush Windows receiver - Windows PowerShell 5.1 or newer.
+﻿# PocketPush Windows receiver - Windows PowerShell 5.1 or newer.
 # Receives individual files over the local network and never deletes phone originals.
 
 $ErrorActionPreference = 'Stop'
@@ -113,12 +113,8 @@ function Test-Token {
 }
 
 Write-Host ''
-Write-Host '  ____  _                   ____  _     ' -ForegroundColor Green
-Write-Host ' |  _ \| |__   ___  _ __   |  _ \| |__  ' -ForegroundColor Green
-Write-Host " | |_) | '_ \ / _ \| '_ \  | |_) | '_ \" -ForegroundColor Green
-Write-Host ' |  __/| | | | (_) | | | | |  __/| | | |' -ForegroundColor Green
-Write-Host ' |_|   |_| |_|\___/|_| |_| |_|   |_| |_|' -ForegroundColor Green
-Write-Host '              Windows receiver' -ForegroundColor DarkGray
+Write-Host '  PocketPush' -ForegroundColor Green
+Write-Host '  Local file receiver' -ForegroundColor DarkGray
 Write-Host ''
 
 if (-not (Test-Path -LiteralPath $SettingsPath)) {
@@ -160,7 +156,7 @@ try {
 }
 catch {
     Write-Host 'Could not start the receiver.' -ForegroundColor Red
-    Write-Host 'Run Install-Windows-Setup.cmd once (it requests administrator permission), then try again.' -ForegroundColor Yellow
+    Write-Host 'Run Install-PocketPush.cmd once (it requests administrator permission), then try again.' -ForegroundColor Yellow
     Write-Host "Details: $($_.Exception.Message)" -ForegroundColor DarkGray
     Read-Host 'Press Enter to close' | Out-Null
     exit 1
@@ -175,7 +171,7 @@ if ($addresses.Count -eq 0) {
     Write-Host 'No active IPv4 address was found. Connect this PC to your Wi-Fi/LAN.' -ForegroundColor Yellow
 }
 else {
-    Write-Host 'Enter one of these addresses in the PhonePush app:' -ForegroundColor Cyan
+    Write-Host 'Enter one of these addresses in the PocketPush app:' -ForegroundColor Cyan
     foreach ($address in $addresses) { Write-Host "  http://${address}:$Port" -ForegroundColor White }
 }
 Write-Host ''
@@ -215,7 +211,7 @@ try {
                     ok = $true
                     computer = $env:COMPUTERNAME
                     destination = [System.IO.Path]::GetFileName($destinationDirectory.TrimEnd('\'))
-                    version = '1.0.0'
+                    version = '1.1.2'
                 }
                 continue
             }

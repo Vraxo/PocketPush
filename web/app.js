@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = '1.0.0';
+const APP_VERSION = '1.1.2';
 const DB_NAME = 'phonepush-local';
 const DB_VERSION = 1;
 const STORE_NAME = 'sources';
@@ -108,7 +108,7 @@ function clearPreview() {
   state.pendingFiles = null;
   $('review-panel').classList.add('hidden');
   $('send-label').textContent = 'SEND ALL';
-  $('send-hint').textContent = 'Copies the current contents of your enabled folders to your PC.';
+  $('send-hint').textContent = 'Current folder contents';
 }
 
 async function renderSources() {
@@ -220,27 +220,58 @@ async function addFolder() {
   }
 }
 
+function formatAddressForInput(serverUrl) {
+  try {
+    const parsed = new URL(serverUrl);
+    return parsed.port && parsed.port !== '8765' ? `${parsed.hostname}:${parsed.port}` : parsed.hostname;
+  } catch {
+    return serverUrl || '';
+  }
+}
+
+function normalizeServerAddress(value) {
+  const rawAddress = value.trim().replace(/\/+$/, '');
+  if (!rawAddress) throw new Error('Enter the PC IP address shown in the Windows receiver.');
+
+  const candidate = /^[a-z][a-z\d+.-]*:\/\//i.test(rawAddress) ? rawAddress : `http://${rawAddress}`;
+  let parsed;
+  try {
+    parsed = new URL(candidate);
+  } catch {
+    throw new Error('Enter a valid PC address, such as 192.168.1.104.');
+  }
+
+  if (parsed.protocol !== 'http:' || !parsed.hostname || parsed.pathname !== '/' || parsed.search || parsed.hash) {
+    throw new Error('Enter the PC IP address only, or paste its full http:// address from Windows.');
+  }
+
+  if (!parsed.port) parsed.port = '8765';
+  return parsed.origin;
+}
+
 function readConnectionSettings() {
   try {
     const settings = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}');
-    $('server-url').value = settings.serverUrl || '';
+    $('server-url').value = formatAddressForInput(settings.serverUrl);
     $('receiver-token').value = settings.token || '';
+    if (settings.serverUrl && settings.token) {
+      setConnectionState('Saved', 'unknown');
+      setMessage($('connection-message'), 'Connection details are saved on this device. Open this panel to change them.');
+      $('connection-panel').open = false;
+    }
   } catch {
     localStorage.removeItem(SETTINGS_KEY);
   }
 }
 
 function getConnectionSettings() {
-  const rawUrl = $('server-url').value.trim().replace(/\/+$/, '');
+  const serverUrl = normalizeServerAddress($('server-url').value);
   const token = $('receiver-token').value.trim();
-  if (!rawUrl || !token) throw new Error('Enter the receiver address and pairing key shown on Windows.');
-  let parsed;
-  try { parsed = new URL(rawUrl); } catch { throw new Error('The receiver address is not a valid URL.'); }
-  if (parsed.protocol !== 'http:' || !parsed.hostname || parsed.pathname !== '/' || parsed.search || parsed.hash) {
-    throw new Error('Use an address like http://192.168.1.100:8765 (HTTP, not HTTPS).');
-  }
-  const settings = { serverUrl: parsed.origin, token };
+  if (!token) throw new Error('Enter the pairing key shown in the Windows receiver.');
+
+  const settings = { serverUrl, token };
   localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+  $('server-url').value = formatAddressForInput(serverUrl);
   return settings;
 }
 
@@ -264,6 +295,7 @@ async function testConnection(showToastOnSuccess = true) {
     if (!response.ok || data.ok !== true) throw new Error(data.error || `Receiver returned HTTP ${response.status}.`);
     setConnectionState('Connected', 'online');
     setMessage(message, `Connected to ${data.computer || 'your PC'}. Saving to ${data.destination || 'the configured folder'}.`, 'success');
+    $('connection-panel').open = false;
     if (showToastOnSuccess) showToast('PC receiver is reachable.');
     return settings;
   } catch (error) {
@@ -505,6 +537,7 @@ function installEvents() {
     $(id).addEventListener('change', () => {
       try { getConnectionSettings(); } catch { /* Incomplete settings are fine until the user tests or sends. */ }
       setConnectionState('Not tested', 'unknown');
+      $('connection-panel').open = true;
     });
   }
 }

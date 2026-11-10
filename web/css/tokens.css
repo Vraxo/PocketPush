@@ -1,6 +1,7 @@
 :root {
   color-scheme: dark;
-  /* Monokai Pro — default filter palette */
+
+  /* Monokai Pro — original brand palette */
   --mp-bg: #2D2A2E;
   --mp-bg-deep: #221F22;
   --mp-surface: #363437;
@@ -16,17 +17,79 @@
   --mp-green: #A9DC76;
   --mp-cyan: #78DCE8;
   --mp-purple: #AB9DF2;
-  --bg: var(--mp-bg);
-  --panel: var(--mp-surface);
-  --panel-2: var(--mp-surface-raised);
-  --line: var(--mp-border);
-  --text: var(--mp-white);
-  --muted: var(--mp-muted);
-  --faint: var(--mp-dim);
-  --accent: var(--mp-green);
-  --danger: var(--mp-red);
-  --radius: 8px;
-  font-family: "Space Grotesk", "Segoe UI Variable", "Segoe UI", Roboto, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Semantic surface and content roles */
+  --color-background: var(--mp-bg);
+  --color-surface: var(--mp-surface);
+  --color-surface-container: var(--mp-surface-raised);
+  --color-surface-container-high: var(--mp-surface-hover);
+  --color-surface-input: var(--mp-bg-deep);
+  --color-outline: var(--mp-border);
+  --color-outline-variant: #454247;
+  --color-on-surface: var(--mp-white);
+  --color-on-surface-variant: var(--mp-muted);
+  --color-on-surface-subtle: var(--mp-dim);
+
+  /* Semantic action and status roles */
+  --color-primary: var(--mp-green);
+  --color-on-primary: #252A21;
+  --color-primary-container: #3C4932;
+  --color-on-primary-container: #D8EDC0;
+  --color-secondary: var(--mp-cyan);
+  --color-tertiary: var(--mp-purple);
+  --color-error: var(--mp-red);
+  --color-warning: var(--mp-yellow);
+  --color-success: var(--mp-green);
+
+  /* Subtle interaction states */
+  --state-hover: #FFFFFF0A;
+  --state-focus: #78DCE81A;
+  --state-pressed: #FFFFFF14;
+  --disabled-opacity: .38;
+
+  /* Typography */
+  --font-family: "Space Grotesk", "Segoe UI Variable", "Segoe UI", Roboto, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --type-brand: 1.1875rem;
+  --type-title: 1.0625rem;
+  --type-body: .875rem;
+  --type-label: .8125rem;
+  --type-control: .75rem;
+  --type-caption: .6875rem;
+  --type-overline: .625rem;
+  --type-micro: .5625rem;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --line-tight: 1.25;
+  --line-normal: 1.45;
+  --line-relaxed: 1.6;
+
+  /* Shape and control scales */
+  --shape-xs: 4px;
+  --shape-sm: 6px;
+  --shape-md: 8px;
+  --shape-lg: 12px;
+  --shape-xl: 16px;
+  --shape-full: 999px;
+  --radius: var(--shape-md);
+  --control-small: 32px;
+  --control-medium: 42px;
+  --control-large: 44px;
+  --control-primary: 56px;
+
+  /* Backwards-compatible aliases */
+  --bg: var(--color-background);
+  --panel: var(--color-surface);
+  --panel-2: var(--color-surface-container);
+  --line: var(--color-outline);
+  --text: var(--color-on-surface);
+  --muted: var(--color-on-surface-variant);
+  --faint: var(--color-on-surface-subtle);
+  --accent: var(--color-primary);
+  --danger: var(--color-error);
+
+  font-family: var(--font-family);
   font-synthesis: none;
   font-kerning: normal;
   font-optical-sizing: auto;

@@ -1,6 +1,6 @@
 # PocketPush
 
-**Current release: 1.2.7** — modular PWA source, HTTPS-encrypted local transfers, live byte-level progress, and a one-time pairing-key rotation utility.
+**Current release: 1.2.8** — modular PWA source, HTTPS-encrypted local transfers, live byte-level progress, and a one-time pairing-key rotation utility.
 
 PocketPush is a deliberately simple Android-to-Windows folder sender. Pick phone folders once, then send their current contents to one Windows folder with one button.
 
@@ -188,7 +188,7 @@ Open PocketPush in current Chrome for Android from its HTTPS website or installe
 
 ## Interface
 
-The interface uses a flat visual treatment: solid surfaces, restrained borders, compact corner radii, and no gradients or elevation shadows.
+The interface uses a flat visual treatment built from semantic Monokai Pro color roles, a compact typography scale, consistent shape tokens, solid surfaces, and shadow-free interaction states.
 
 ## Typography
 

@@ -57,3 +57,12 @@
 - Restore the self-hosted Space Grotesk variable font, its Latin, Latin Extended, and Vietnamese WOFF2 subsets, and the SIL Open Font License after correcting the release tree.
 - Apply the flat styling directly to the live stylesheets: solid card surfaces, smaller radii, and no gradients, glows, or elevation shadows.
 - Keep the ambient decorative elements removed and refresh the service-worker cache.
+
+
+## 1.2.8 — 2026-11-10
+
+- Organize the Monokai Pro palette into semantic surface, content, action, and status roles without changing the brand colors.
+- Introduce a compact typography scale, shared font weights, line-height tokens, shape tokens, and control-size tokens.
+- Standardize focus, hover, pressed, and disabled states with subtle state layers and no elevation.
+- Restore a conventional pill-shaped toggle with a clear high-contrast selected state.
+- Apply consistent typography and semantic color roles across the primary interface components.

@@ -2,7 +2,7 @@
 .review-panel { padding-bottom: 13px; }
 .review-toolbar { display: flex; align-items: center; justify-content: flex-end; margin: -1px 1px 8px; }
 .review-toolbar > div { display: flex; align-items: center; gap: 7px; }
-.text-button { padding: 4px 0; border: 0; background: transparent; color: var(--mp-cyan); font-size: 11px; font-weight: 650; cursor: pointer; }
+.text-button { padding: 4px 0; border: 0; background: transparent; color: var(--color-secondary); font-size: var(--type-caption); font-weight: var(--weight-semibold); cursor: pointer; }
 .text-button:hover { color: var(--mp-white); }
 .toolbar-divider { color: var(--mp-dim); font-size: 9px; }
 .file-list { display: grid; max-height: 340px; gap: 0; overflow: auto; border-top: 1px solid #ffffff0d; }
@@ -13,9 +13,9 @@
 .file-name { display: block; overflow: hidden; color: var(--mp-white); font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
 .file-path { display: block; overflow: hidden; margin-top: 3px; color: var(--mp-dim); font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
 .file-size { color: var(--mp-muted); font-size: 10px; white-space: nowrap; }
-.progress-track { height: 5px; overflow: hidden; border-radius: 0; background: #221F22; }
-.progress-fill { width: 0; height: 100%; border-radius: 0; background: var(--mp-green); transition: width .12s linear; }
-.transfer-metrics { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 7px 12px; margin-top: 9px; color: var(--mp-dim); font-size: 11px; font-variant-numeric: tabular-nums; }
+.progress-track { height: 5px; overflow: hidden; border-radius: var(--shape-full); background: var(--color-surface-input); }
+.progress-fill { width: 0; height: 100%; border-radius: inherit; background: var(--color-primary); transition: width .12s linear; }
+.transfer-metrics { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 7px 12px; margin-top: 9px; color: var(--color-on-surface-subtle); font-size: var(--type-caption); font-variant-numeric: tabular-nums; }
 .transfer-metrics span:first-child { color: var(--mp-white); font-weight: 620; }
 .transfer-current { max-width: 340px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .transfer-results { display: grid; max-height: 220px; gap: 6px; margin-top: 12px; overflow-y: auto; }

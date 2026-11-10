@@ -72,3 +72,4 @@
 
 - Strengthen the disclosure icon frames and slider icon strokes for clearer rendering at fractional display scaling.
 - Refine the primary action label with sentence case and less tracking, without changing the Space Grotesk typeface.
+- Replace the two-slider disclosure symbol with a balanced three-slider icon designed for the compact 35px icon frame.

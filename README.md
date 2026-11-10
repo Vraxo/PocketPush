@@ -163,12 +163,12 @@ Open PocketPush in current Chrome for Android from its HTTPS website or installe
 ## Project layout
 
 - `web/index.html` — the single semantic document and application shell. It stays as one file because this is one static screen, not a set of independently reusable pages. Fetching HTML fragments at runtime would add startup and offline complexity without much benefit.
-- `web/css/` — styles split by responsibility, including `fonts.css` for the self-hosted typeface.
+- `web/css/` — styles split by responsibility, including `tokens.css` for semantic design tokens and `material.css` for the alternate Material 3 palette and component treatment.
 - `web/fonts/` — self-hosted Space Grotesk WOFF2 subsets and their OFL license.
 - `web/js/app.js` — the application entry point and event wiring.
 - `web/js/core/` — app/storage configuration, current-session state, and shared DOM helpers.
 - `web/js/data/` — IndexedDB persistence for Android directory handles.
-- `web/js/features/` — separate folder, connection, review, and transfer modules.
+- `web/js/features/` — separate folder, connection, review, transfer, and appearance modules.
 - `web/` also contains the icons, service worker and PWA manifest.
 - `windows/Start-PhonePush.ps1` — HTTPS receiver (legacy filename retained for existing installs).
 - `windows/Install-Windows-Setup.ps1` — CA, TLS binding, URL reservation and firewall setup.

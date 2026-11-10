@@ -1,5 +1,5 @@
 * { box-sizing: border-box; }
-html { min-height: 100%; background: var(--mp-bg); scroll-behavior: smooth; }
+html { min-height: 100%; background: var(--color-background); scroll-behavior: smooth; }
 body {
   position: relative;
   isolation: isolate;

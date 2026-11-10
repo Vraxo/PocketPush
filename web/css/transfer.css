@@ -5,8 +5,8 @@
 .text-button { padding: 4px 0; border: 0; background: transparent; color: var(--color-secondary); font-size: var(--type-caption); font-weight: var(--weight-semibold); cursor: pointer; }
 .text-button:hover { color: var(--mp-white); }
 .toolbar-divider { color: var(--mp-dim); font-size: 9px; }
-.file-list { display: grid; max-height: 340px; gap: 0; overflow: auto; border-top: 1px solid #ffffff0d; }
-.file-row { display: flex; align-items: center; gap: 9px; padding: 9px 3px; border-bottom: 1px solid #ffffff0b; }
+.file-list { display: grid; max-height: 340px; gap: 0; overflow: auto; border-top: 1px solid var(--color-divider); }
+.file-row { display: flex; align-items: center; gap: 9px; padding: 9px 3px; border-bottom: 1px solid var(--color-divider); }
 .file-row:last-child { border-bottom: 0; }
 .file-row input { width: 15px; height: 15px; flex: 0 0 auto; margin: 0; accent-color: var(--mp-green); }
 .file-info { min-width: 0; flex: 1; }

@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.3.0 — 2026-11-11
+
+- Add independent colour-palette and interface-style preferences.
+- Keep Monokai Pro as the default palette and PocketPush as the default component style.
+- Add a Material 3 baseline palette that follows the device's light/dark preference.
+- Add an optional Material 3 component style with Android-inspired shapes, touch sizing, controls and interaction states.
+- Persist appearance preferences locally and include the new theme assets in the offline app shell.
+
+# Changelog
+
 ## 1.2.0 — 2026-11-02
 
 - Encrypt phone-to-PC transfers with HTTPS using a locally generated CA.

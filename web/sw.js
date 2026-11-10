@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pocketpush-static-v17';
+const CACHE_NAME = 'pocketpush-static-v18';
 const APP_SHELL = [
   './',
   './index.html',
@@ -15,8 +15,10 @@ const APP_SHELL = [
   './js/features/folders.js',
   './js/features/connection.js',
   './js/features/transfer.js',
+  './js/features/appearance.js',
   './css/fonts.css',
   './css/tokens.css',
+  './css/material.css',
   './fonts/space-grotesk-latin-wght-normal.woff2',
   './fonts/space-grotesk-latin-ext-wght-normal.woff2',
   './fonts/space-grotesk-vietnamese-wght-normal.woff2',

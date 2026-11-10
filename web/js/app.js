@@ -6,6 +6,7 @@ import { clearPreview, renderReview } from './features/review.js';
 import { pickFolder, renderSources } from './features/folders.js';
 import { getConnectionSettings, readConnectionSettings, testConnection } from './features/connection.js';
 import { handleSend, retryFailedFiles, setBusy } from './features/transfer.js';
+import { initializeAppearance } from './features/appearance.js';
 
 async function refreshSources() {
   await renderSources(state.sources, {
@@ -86,6 +87,7 @@ function installEvents() {
 
 async function initialize() {
   $('app-version').textContent = `v${APP_VERSION}`;
+  initializeAppearance();
   readConnectionSettings();
   installEvents();
 

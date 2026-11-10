@@ -11,6 +11,7 @@
   <link rel="preload" href="./fonts/space-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="./css/fonts.css">
   <link rel="stylesheet" href="./css/tokens.css">
+  <link rel="stylesheet" href="./css/material.css">
   <link rel="stylesheet" href="./css/base.css">
   <link rel="stylesheet" href="./css/layout.css">
   <link rel="stylesheet" href="./css/components.css">
@@ -114,7 +115,7 @@
             <span class="summary-icon icon-cyan" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="4" width="17" height="12" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M8 20h8m-4-4v4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
             </span>
-            
+            <span class="summary-copy"><strong>Connection</strong></span>
             <span id="connection-state" class="state-badge state-unknown">Not tested</span>
             <span class="chevron" aria-hidden="true">⌄</span>
           </summary>
@@ -139,10 +140,29 @@
             <span class="summary-icon icon-purple" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none"><path d="M10 2.8h4l.55 2.25c.62.18 1.2.52 1.68.96l2.2-.7 2 3.46-1.65 1.65a7 7 0 0 1 0 1.92l1.65 1.65-2 3.46-2.2-.7a6.5 6.5 0 0 1-1.68.96L14 20h-4l-.55-2.25a6.5 6.5 0 0 1-1.68-.96l-2.2.7-2-3.46 1.65-1.65a7 7 0 0 1 0-1.92L3.57 8.81l2-3.46 2.2.7a6.5 6.5 0 0 1 1.68-.96L10 2.8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="11.5" r="3" stroke="currentColor" stroke-width="1.8"/></svg>
             </span>
-            
+            <span class="summary-copy"><strong>Settings</strong></span>
             <span class="chevron" aria-hidden="true">⌄</span>
           </summary>
           <div class="disclosure-content options-content">
+            <section class="appearance-settings" aria-labelledby="appearance-heading">
+              <h3 id="appearance-heading" class="appearance-heading">Appearance</h3>
+              <label class="appearance-field" for="palette-select">
+                <span>Colour palette</span>
+                <select id="palette-select" class="text-input appearance-select">
+                  <option value="monokai">Monokai Pro</option>
+                  <option value="material">Material 3</option>
+                </select>
+              </label>
+              <label class="appearance-field" for="ui-style-select">
+                <span>Interface style</span>
+                <select id="ui-style-select" class="text-input appearance-select">
+                  <option value="pocketpush">PocketPush</option>
+                  <option value="material3">Material 3</option>
+                </select>
+              </label>
+              <p id="palette-hint" class="appearance-hint" hidden>Material colours follow your device’s light/dark setting. Android wallpaper-derived Material You colours are not currently exposed to PWAs.</p>
+            </section>
+            <div class="option-divider"></div>
             <label class="option-row">
               <span class="option-copy"><strong>Include subfolders</strong></span>
               <input id="include-subfolders" type="checkbox" checked>
@@ -164,7 +184,7 @@
     <footer class="footer">
       <nav class="footer-links" aria-label="About PocketPush">
         <a href="https://github.com/Vraxo/PocketPush" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
-        <span>POCKETPUSH <i>·</i> <span id="app-version">v1.2.9</span></span>
+        <span>POCKETPUSH <i>·</i> <span id="app-version">v1.3.0</span></span>
       </nav>
     </footer>
   </main>

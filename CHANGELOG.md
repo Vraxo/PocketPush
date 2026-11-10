@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.3.1 — 2026-11-11
+
+- Add a System dynamic palette option for installed Chrome and Edge PWAs on Windows.
+- Use the Windows AccentColor and AccentColorText system colours to seed the dynamic primary roles.
+- Generate matching light and dark tonal surface, secondary, tertiary, outline and status roles from the system accent.
+- Fall back to the standard Material 3 palette when the installed-app or browser support requirements are not met.
+- Refresh dynamic colours when the app regains focus and bump the offline cache.
+
+# Changelog
+
 ## 1.3.0 — 2026-11-11
 
 - Add independent colour-palette and interface-style preferences.

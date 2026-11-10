@@ -36,7 +36,7 @@
 .send-button-icon { display: grid; width: 34px; height: 34px; flex: 0 0 34px; place-items: center; border: 1px solid #252A2140; border-radius: var(--shape-xs); background: #252A2110; }
 .send-button-icon svg { width: 20px; height: 20px; }
 .send-button-copy { display: grid; min-width: 0; flex: 1; gap: 2px; }
-.send-button-copy strong { font-size: var(--type-control); font-weight: var(--weight-bold); letter-spacing: .85px; }
+.send-button-copy strong { font-size: 13px; font-weight: var(--weight-bold); letter-spacing: .1px; }
 .send-button-arrow { padding: 0 1px 2px 3px; font-size: 19px; font-weight: 500; }
 
 /* Disclosure cards: connection and options */
@@ -45,8 +45,8 @@
 .disclosure-summary::-webkit-details-marker { display: none; }
 .disclosure-summary::marker { display: none; content: ""; }
 .disclosure-summary:hover { background: #ffffff04; }
-.summary-icon { display: grid; width: 35px; height: 35px; flex: 0 0 35px; place-items: center; border: 1px solid currentColor; border-radius: var(--shape-sm); background: var(--color-surface-container); color: var(--color-secondary); }
-.summary-icon svg { width: 19px; height: 19px; }
+.summary-icon { display: grid; width: 35px; height: 35px; flex: 0 0 35px; place-items: center; border: 1.6px solid currentColor; border-radius: var(--shape-md); background: var(--color-surface-container); color: var(--color-secondary); }
+.summary-icon svg { width: 20px; height: 20px; }
 .icon-purple { background: var(--color-surface-container); color: var(--color-tertiary); }
 .summary-copy { display: grid; min-width: 0; flex: 1; gap: 4px; }
 .summary-copy strong { color: var(--color-on-surface); font-size: var(--type-label); font-weight: var(--weight-semibold); }

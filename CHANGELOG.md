@@ -66,3 +66,9 @@
 - Standardize focus, hover, pressed, and disabled states with subtle state layers and no elevation.
 - Restore a conventional pill-shaped toggle with a clear high-contrast selected state.
 - Apply consistent typography and semantic color roles across the primary interface components.
+
+
+## 1.2.9 — 2026-11-10
+
+- Strengthen the disclosure icon frames and slider icon strokes for clearer rendering at fractional display scaling.
+- Refine the primary action label with sentence case and less tracking, without changing the Space Grotesk typeface.

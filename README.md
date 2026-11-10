@@ -1,6 +1,6 @@
 # PocketPush
 
-**Current release: 1.2.3** — modular PWA source, HTTPS-encrypted local transfers, live byte-level progress, and a one-time pairing-key rotation utility.
+**Current release: 1.2.4** — modular PWA source, HTTPS-encrypted local transfers, live byte-level progress, and a one-time pairing-key rotation utility.
 
 PocketPush is a deliberately simple Android-to-Windows folder sender. Pick phone folders once, then send their current contents to one Windows folder with one button.
 
@@ -163,7 +163,8 @@ Open PocketPush in current Chrome for Android from its HTTPS website or installe
 ## Project layout
 
 - `web/index.html` — the single semantic document and application shell. It stays as one file because this is one static screen, not a set of independently reusable pages. Fetching HTML fragments at runtime would add startup and offline complexity without much benefit.
-- `web/css/` — styles split by responsibility: `tokens.css`, `base.css`, `layout.css`, `components.css`, `transfer.css`, `utilities.css`, and `responsive.css`.
+- `web/css/` — styles split by responsibility, including `fonts.css` for the self-hosted typeface.
+- `web/fonts/` — self-hosted Space Grotesk WOFF2 subsets and their OFL license.
 - `web/js/app.js` — the application entry point and event wiring.
 - `web/js/core/` — app/storage configuration, current-session state, and shared DOM helpers.
 - `web/js/data/` — IndexedDB persistence for Android directory handles.
@@ -185,6 +186,10 @@ Open PocketPush in current Chrome for Android from its HTTPS website or installe
 - Large transfers require the PWA to remain in the foreground and the phone to stay awake. Android may pause background tabs.
 - A local CA must be installed on each Android device that will use the HTTPS receiver. The Windows server certificate is reissued when setup is run again, for example after the PC's LAN IP changes.
 
+## Typography
+
+The PWA self-hosts the Space Grotesk variable font as three WOFF2 subsets (Latin, Latin Extended, and Vietnamese; about 47 KB combined). The files are distributed under the SIL Open Font License 1.1; see [`web/fonts/OFL.txt`](web/fonts/OFL.txt). The font binaries are sourced from Fontsource's Google Fonts distribution at commit `5a72889057f592bb0659629e38337359f94d53b2`.
+
 ## License
 
-MIT. See [`LICENSE`](LICENSE).
+The application code is MIT-licensed. The Space Grotesk font files in `web/fonts/` are separately licensed under SIL Open Font License 1.1; see [`web/fonts/OFL.txt`](web/fonts/OFL.txt).

@@ -31,3 +31,10 @@
 
 - Replace the empty-folder fallback glyph with the same Monokai Pro folder SVG used in the initial page markup.
 - Reuse the existing `.empty-folder` styling so the icon stays consistent after JavaScript renders the folder list.
+
+
+## 1.2.4 — 2026-11-10
+
+- Adopt Space Grotesk as the app's primary variable typeface.
+- Self-host and pre-cache Latin, Latin Extended, and Vietnamese WOFF2 subsets for offline use.
+- Preload the primary Latin subset and include the font's SIL Open Font License.

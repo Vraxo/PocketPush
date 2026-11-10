@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pocketpush-static-v12';
+const CACHE_NAME = 'pocketpush-static-v13';
 const APP_SHELL = [
   './',
   './index.html',

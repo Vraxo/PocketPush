@@ -44,3 +44,9 @@
 
 - Flatten the interface with solid surfaces, crisp borders, smaller corner radii, and no elevation shadows or decorative gradients.
 - Simplify folder, connection, button, input, progress, and toast styling while preserving the layout and Monokai Pro palette.
+
+
+## 1.2.6 — 2026-11-10
+
+- Remove the ambient decorative elements from the HTML rather than merely hiding them with CSS.
+- Bump the PWA cache so existing installations fetch the fully flat background styles.

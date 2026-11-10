@@ -25,8 +25,8 @@
   --faint: var(--mp-dim);
   --accent: var(--mp-green);
   --danger: var(--mp-red);
-  --radius: 8px;
-  font-family: "Space Grotesk", "Segoe UI Variable", "Segoe UI", Roboto, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --radius: 17px;
+  font-family: "Segoe UI Variable", "Segoe UI", Roboto, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   font-synthesis: none;
   font-kerning: normal;
   font-optical-sizing: auto;

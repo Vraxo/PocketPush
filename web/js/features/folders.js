@@ -29,7 +29,15 @@ export async function renderSources(sources, actions) {
   if (sources.length === 0) {
     const empty = document.createElement('div');
     empty.className = 'empty-state';
-    empty.innerHTML = '<div class="empty-icon">▱</div><strong>No folders</strong>';
+    const icon = document.createElement('span');
+    icon.className = 'empty-folder';
+    icon.setAttribute('aria-hidden', 'true');
+    icon.innerHTML = '<svg viewBox="0 0 32 32" fill="none"><path d="M4 9.5A2.5 2.5 0 0 1 6.5 7H13l3 3h9.5A2.5 2.5 0 0 1 28 12.5v11a2.5 2.5 0 0 1-2.5 2.5h-19A2.5 2.5 0 0 1 4 23.5v-14Z" stroke="currentColor" stroke-width="1.6"/><path d="M4.5 13h23" stroke="currentColor" stroke-width="1.6"/></svg>';
+
+    const label = document.createElement('strong');
+    label.textContent = 'No folders';
+
+    empty.append(icon, label);
     list.append(empty);
     return;
   }

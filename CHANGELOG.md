@@ -25,3 +25,9 @@
 - Remove promotional and repeated explanatory copy from the live app UI.
 - Keep concise controls, section labels, operational status, and actionable error messages.
 - Preserve the repository README presentation and screenshots.
+
+
+## 1.2.3 — 2026-11-10
+
+- Replace the empty-folder fallback glyph with the same Monokai Pro folder SVG used in the initial page markup.
+- Reuse the existing `.empty-folder` styling so the icon stays consistent after JavaScript renders the folder list.

@@ -84,7 +84,7 @@ export async function uploadFiles(files, settings) {
   state.retryFiles = [];
   state.retrySettings = null;
   $('retry-failed').classList.add('hidden');
-  $('transfer-heading').textContent = 'Sending files';
+  $('transfer-heading').textContent = 'Sending';
   $('progress-fill').style.width = '0%';
 
   const totalBytes = files.reduce((total, item) => total + item.file.size, 0);
@@ -134,7 +134,7 @@ export async function uploadFiles(files, settings) {
     ? `${Math.round((acknowledgedBytes / totalBytes) * 100)}%`
     : '100%';
   $('transfer-heading').textContent = failed === 0 ? 'Transfer complete' : 'Transfer finished with errors';
-  $('transfer-current').textContent = `${succeeded} sent · ${failed} failed · ${formatBytes(acknowledgedBytes)} received. Phone originals were left untouched.`;
+  $('transfer-current').textContent = `${succeeded} sent · ${failed} failed · ${formatBytes(acknowledgedBytes)}`;
   $('transfer-eta').textContent = failed === 0 ? 'Complete' : `${failed} file${failed === 1 ? '' : 's'} need attention`;
 
   state.retryFiles = failedFiles;
@@ -143,8 +143,8 @@ export async function uploadFiles(files, settings) {
   setMessage(
     $('connection-message'),
     failed === 0
-      ? `Last run: ${succeeded} files sent successfully.`
-      : `Last run: ${succeeded} sent, ${failed} failed. You can retry only the failed files now.`,
+      ? `${succeeded} sent.`
+      : `${succeeded} sent · ${failed} failed.`,
     failed === 0 ? 'success' : 'error'
   );
   showToast(failed === 0 ? `Sent ${succeeded} ${succeeded === 1 ? 'file' : 'files'}.` : `${succeeded} sent, ${failed} failed.`);
@@ -174,20 +174,20 @@ export async function handleSend() {
     if (state.pendingFiles && $('review-before-send').checked) {
       files = state.pendingFiles.filter((item) => item.selected);
     } else {
-      setMessage($('connection-message'), 'Checking the PC and reading your selected folders…');
+      setMessage($('connection-message'), 'Scanning folders…');
       const connection = await testConnection(false);
       files = await scanEnabledSources(state.sources, $('include-subfolders').checked);
 
       if (files.length === 0) {
-        showToast('No files found in the enabled folders.');
-        setMessage($('connection-message'), 'No files found in the enabled folders.', 'success');
+        showToast('No files found.');
+        setMessage($('connection-message'), 'No files found.', 'success');
         return;
       }
 
       if ($('review-before-send').checked) {
         state.pendingFiles = files;
         renderReview(state);
-        showToast(`Found ${files.length} files. Untick any exceptions.`);
+        showToast(`${files.length} files found.`);
         return;
       }
 

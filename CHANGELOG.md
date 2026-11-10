@@ -19,3 +19,9 @@
 - Update the service worker app shell and cache version for all modules and stylesheets.
 - Preserve existing IndexedDB and localStorage identifiers; no user data migration is required.
 
+
+## 1.2.2 — 2026-11-10
+
+- Remove promotional and repeated explanatory copy from the live app UI.
+- Keep concise controls, section labels, operational status, and actionable error messages.
+- Preserve the repository README presentation and screenshots.

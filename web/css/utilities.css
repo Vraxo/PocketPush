@@ -1,5 +1,5 @@
 /* Footer and toast */
-.footer { display: flex; justify-content: space-between; gap: 12px; padding: 20px 3px 0; color: var(--mp-dim); font-size: 10px; font-weight: 620; letter-spacing: .55px; }
+.footer { display: flex; justify-content: flex-end; gap: 12px; padding: 20px 3px 0; color: var(--mp-dim); font-size: 10px; font-weight: 620; letter-spacing: .55px; }
 .footer i { padding: 0 3px; color: var(--mp-green); font-style: normal; }
 .footer-links { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 14px; }
 .footer-links a { color: var(--mp-muted); text-decoration: none; transition: color .15s ease; }

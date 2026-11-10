@@ -12,18 +12,18 @@ export function formatAddressForInput(serverUrl) {
 
 export function normalizeServerAddress(value) {
   const rawAddress = value.trim().replace(/\/+$/, '');
-  if (!rawAddress) throw new Error('Enter the PC IP address shown in the Windows receiver.');
+  if (!rawAddress) throw new Error('Enter the PC address.');
 
   const candidate = /^[a-z][a-z\d+.-]*:\/\//i.test(rawAddress) ? rawAddress : `https://${rawAddress}`;
   let parsed;
   try {
     parsed = new URL(candidate);
   } catch {
-    throw new Error('Enter a valid PC address, such as 192.168.1.104.');
+    throw new Error('Invalid PC address.');
   }
 
   if (!['http:', 'https:'].includes(parsed.protocol) || !parsed.hostname || parsed.pathname !== '/' || parsed.search || parsed.hash) {
-    throw new Error('Enter the PC IP address only, or paste its full HTTPS address from Windows.');
+    throw new Error('Enter a PC address or HTTPS URL.');
   }
 
   // PocketPush requires HTTPS for the local transfer channel.
@@ -40,7 +40,7 @@ export function readConnectionSettings() {
 
     if (settings.serverUrl && settings.token) {
       setConnectionState('Saved', 'unknown');
-      setMessage($('connection-message'), 'Connection details are saved on this device. Open this panel to change them.');
+      setMessage($('connection-message'), 'Saved.');
       $('connection-panel').open = false;
     }
   } catch {
@@ -51,7 +51,7 @@ export function readConnectionSettings() {
 export function getConnectionSettings() {
   const serverUrl = normalizeServerAddress($('server-url').value);
   const token = $('receiver-token').value.trim();
-  if (!token) throw new Error('Enter the pairing key shown in the Windows receiver.');
+  if (!token) throw new Error('Enter the pairing key.');
 
   const settings = { serverUrl, token };
   localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
@@ -67,7 +67,7 @@ function localFetch(url, options) {
 export async function testConnection(showToastOnSuccess = true) {
   const message = $('connection-message');
   setConnectionState('Testing…', 'unknown');
-  setMessage(message, 'Contacting your PC over the local network…');
+  setMessage(message, 'Connecting…');
 
   try {
     const settings = getConnectionSettings();
@@ -80,9 +80,9 @@ export async function testConnection(showToastOnSuccess = true) {
     if (!response.ok || data.ok !== true) throw new Error(data.error || `Receiver returned HTTP ${response.status}.`);
 
     setConnectionState('Connected', 'online');
-    setMessage(message, `Connected to ${data.computer || 'your PC'}. Saving to ${data.destination || 'the configured folder'}.`, 'success');
+    setMessage(message, data.computer ? `Connected · ${data.computer}` : 'Connected.', 'success');
     $('connection-panel').open = false;
-    if (showToastOnSuccess) showToast('PC receiver is reachable.');
+    if (showToastOnSuccess) showToast('Connected.');
     return settings;
   } catch (error) {
     setConnectionState('Not connected', 'offline');
@@ -94,7 +94,7 @@ export async function testConnection(showToastOnSuccess = true) {
 export function describeNetworkError(error) {
   const detail = error?.message || String(error);
   if (detail.includes('Failed to fetch') || detail.includes('NetworkError') || detail.includes('Load failed')) {
-    return 'Could not reach the secure receiver. Check that Windows PocketPush is running, both devices are on the same Wi-Fi, Chrome has Local network access, and PocketPush-Local-CA.cer is installed on Android as a CA certificate.';
+    return 'Connection failed. Check Wi-Fi, Chrome local-network access, and the PocketPush CA certificate.';
   }
   return detail;
 }

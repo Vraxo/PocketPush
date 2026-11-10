@@ -2,7 +2,7 @@ import { $ , showToast } from '../core/dom.js';
 
 export async function pickFolder(existingSources) {
   if (typeof window.showDirectoryPicker !== 'function') {
-    showToast('Folder picking is not supported here. Open the installed app in current Chrome on Android.');
+    showToast('Folder picker unavailable. Use Chrome on Android.');
     return null;
   }
 
@@ -10,13 +10,13 @@ export async function pickFolder(existingSources) {
     const handle = await window.showDirectoryPicker({ mode: 'read' });
     for (const existing of existingSources) {
       if (await existing.handle.isSameEntry(handle)) {
-        showToast(`“${handle.name}” is already configured.`);
+        showToast('Folder already added.');
         return null;
       }
     }
     return { id: crypto.randomUUID(), label: handle.name, handle, enabled: true };
   } catch (error) {
-    if (error?.name !== 'AbortError') showToast(error.message || 'Could not add that folder.');
+    if (error?.name !== 'AbortError') showToast(error.message || "Cannot add folder.");
     return null;
   }
 }
@@ -29,7 +29,7 @@ export async function renderSources(sources, actions) {
   if (sources.length === 0) {
     const empty = document.createElement('div');
     empty.className = 'empty-state';
-    empty.innerHTML = '<div class="empty-icon">▱</div><strong>No folders configured</strong><span>Add Camera, Screenshots, Downloads, or any other folder.</span>';
+    empty.innerHTML = '<div class="empty-icon">▱</div><strong>No folders</strong>';
     list.append(empty);
     return;
   }
@@ -60,10 +60,10 @@ export async function renderSources(sources, actions) {
 
     try {
       const permission = await source.handle.queryPermission({ mode: 'read' });
-      status.textContent = permission === 'granted' ? 'Access ready' : 'Permission may need renewal';
+      status.textContent = permission === 'granted' ? 'Ready' : 'Access needed';
       if (permission !== 'granted') status.classList.add('needs-permission');
     } catch {
-      status.textContent = 'Access unavailable · reselect folder';
+      status.textContent = 'Unavailable';
       status.classList.add('needs-permission');
     }
     info.append(name, status);
@@ -80,13 +80,13 @@ export async function renderSources(sources, actions) {
       try {
         const result = await source.handle.requestPermission({ mode: 'read' });
         if (result === 'granted') {
-          showToast(`Access restored: ${source.label}`);
+          showToast('Access restored.');
           await actions.onRefresh();
         } else {
-          showToast('Folder permission was not granted.');
+          showToast('Access denied.');
         }
       } catch (error) {
-        showToast(error.message || 'Could not renew folder access.');
+        showToast(error.message || "Cannot restore access.");
       }
     });
 
@@ -121,13 +121,13 @@ async function collectFiles(source, includeSubfolders, parentPath = '') {
 
 export async function scanEnabledSources(sources, includeSubfolders) {
   const enabledSources = sources.filter((source) => source.enabled !== false);
-  if (enabledSources.length === 0) throw new Error('Add or enable at least one source folder first.');
+  if (enabledSources.length === 0) throw new Error('Add or enable a folder first.');
 
   // A saved handle may need permission renewal after Chrome restarts.
   const permissions = await Promise.all(enabledSources.map((source) => source.handle.queryPermission({ mode: 'read' })));
   const denied = enabledSources.filter((source, index) => permissions[index] !== 'granted');
   if (denied.length) {
-    throw new Error(`Folder access is needed for: ${denied.map((source) => source.label).join(', ')}. Tap Access beside each folder, then try again.`);
+    throw new Error(`Access needed: ${denied.map((source) => source.label).join(', ')}.`);
   }
 
   const allFiles = [];

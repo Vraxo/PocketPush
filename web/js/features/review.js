@@ -8,7 +8,6 @@ export function clearPreview(state) {
   state.pendingFiles = null;
   $('review-panel').classList.add('hidden');
   $('send-label').textContent = 'SEND ALL';
-  $('send-hint').textContent = 'Current folder contents';
   $('send-all').disabled = state.sending;
 }
 
@@ -55,8 +54,7 @@ export function renderReview(state) {
 export function updateReviewCount(state) {
   const selected = selectedFileCount(state);
   const total = (state.pendingFiles || []).length;
-  $('review-count').textContent = `${selected} / ${total} selected`;
+  $('review-count').textContent = `${selected} / ${total}`;
   $('send-label').textContent = `SEND SELECTED (${selected})`;
-  $('send-hint').textContent = 'Only checked files will be copied in this run. Nothing is remembered after the run.';
   $('send-all').disabled = state.sending || selected === 0;
 }

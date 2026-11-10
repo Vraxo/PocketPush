@@ -90,11 +90,11 @@ async function initialize() {
   installEvents();
 
   if (!window.isSecureContext) {
-    setMessage($('connection-message'), 'Open PocketPush from its HTTPS installation address. The Windows receiver also uses HTTPS with your locally installed PocketPush certificate.', 'error');
+    setMessage($('connection-message'), 'Open PocketPush over HTTPS.', 'error');
   }
   if (!('showDirectoryPicker' in window)) {
     $('add-folder').disabled = true;
-    setMessage($('connection-message'), 'This browser does not support persistent folder selection. Use current Chrome on Android.', 'error');
+    setMessage($('connection-message'), 'Folder selection requires Chrome on Android.', 'error');
   }
 
   try {
@@ -102,7 +102,7 @@ async function initialize() {
     state.sources = await loadSources(state.db);
     await refreshSources();
   } catch (error) {
-    setMessage($('connection-message'), `Could not initialize local folder storage: ${error.message}`, 'error');
+    setMessage($('connection-message'), `Storage error: ${error.message}`, 'error');
   }
 
   if ('serviceWorker' in navigator && window.isSecureContext) {

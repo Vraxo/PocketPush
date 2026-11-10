@@ -1,7 +1,6 @@
 /* Review, progress, results */
 .review-panel { padding-bottom: 13px; }
-.review-toolbar { display: flex; align-items: center; justify-content: space-between; margin: -1px 1px 8px; }
-.review-label { color: var(--mp-dim); font-size: 10px; font-weight: 680; letter-spacing: .8px; }
+.review-toolbar { display: flex; align-items: center; justify-content: flex-end; margin: -1px 1px 8px; }
 .review-toolbar > div { display: flex; align-items: center; gap: 7px; }
 .text-button { padding: 4px 0; border: 0; background: transparent; color: var(--mp-cyan); font-size: 11px; font-weight: 650; cursor: pointer; }
 .text-button:hover { color: var(--mp-white); }

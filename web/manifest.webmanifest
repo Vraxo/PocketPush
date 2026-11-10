@@ -2,7 +2,7 @@
   "id": "./",
   "name": "PocketPush - Phone to PC",
   "short_name": "PocketPush",
-  "description": "Send files directly from saved phone folders to your PC over an encrypted local connection.",
+  "description": "Local Android-to-Windows file transfer.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

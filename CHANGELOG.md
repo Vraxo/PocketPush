@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.3.2 — 2026-11-11
+
+- Extend System dynamic to desktop Firefox on Windows, including ordinary browser tabs.
+- Keep the installed-app requirement for Chromium browsers and retain the Material 3 fallback when system accent colours are unavailable.
+- Document the browser and privacy-setting limitations of system-colour access.
+
+
 ## 1.3.1 — 2026-11-11
 
 - Add a System dynamic palette option for installed Chrome and Edge PWAs on Windows.

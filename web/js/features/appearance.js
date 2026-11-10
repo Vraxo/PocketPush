@@ -117,10 +117,13 @@ function hslToHex(hue, saturation, lightness) {
 
 function readSystemAccent() {
   const platform = navigator.userAgentData?.platform || navigator.platform || navigator.userAgent || '';
+  const userAgent = navigator.userAgent || '';
   const isWindows = /windows|win32|win64/i.test(platform);
+  const isFirefox = /Firefox\/\d+/i.test(userAgent);
   const isInstalled = window.matchMedia?.('(display-mode: standalone)').matches === true;
+  const supportsDynamicContext = isInstalled || isFirefox;
 
-  if (!isWindows || !isInstalled || !window.CSS?.supports ||
+  if (!isWindows || !supportsDynamicContext || !window.CSS?.supports ||
       !CSS.supports('color', 'AccentColor') ||
       !CSS.supports('color', 'AccentColorText')) {
     return null;
@@ -140,7 +143,7 @@ function readSystemAccent() {
   const textRgb = parseCssRgb(accentText);
   if (!rgb || !textRgb) return null;
 
-  return { color: accent, textColor: accentText, rgb };
+  return { color: accent, textColor: accentText, rgb, source: isFirefox ? 'firefox' : 'chromium-pwa' };
 }
 
 function makeDynamicPalette(systemAccent, isLight) {
@@ -244,10 +247,12 @@ function applyAppearance() {
       hint.textContent = 'Material 3 uses a standard palette and follows your device’s light/dark setting.';
       hint.hidden = false;
     } else if (appearance.palette === 'system' && dynamicAvailable) {
-      hint.textContent = 'Using the Windows accent colour. Changes are picked up when PocketPush regains focus.';
+      hint.textContent = systemAccent.source === 'firefox'
+        ? 'Using the Windows accent colour through Firefox. Changes are picked up when PocketPush regains focus.'
+        : 'Using the Windows accent colour. Changes are picked up when PocketPush regains focus.';
       hint.hidden = false;
     } else if (appearance.palette === 'system') {
-      hint.textContent = 'Windows accent colours require PocketPush to be installed in a supported Chrome or Edge app on Windows. Using the standard Material 3 palette here.';
+      hint.textContent = 'System dynamic uses Windows accent colours in Firefox on Windows or installed Chrome and Edge apps. Using the standard Material 3 palette here.';
       hint.hidden = false;
     } else {
       hint.hidden = true;

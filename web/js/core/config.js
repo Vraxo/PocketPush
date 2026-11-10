@@ -1,4 +1,4 @@
-export const APP_VERSION = '1.3.1';
+export const APP_VERSION = '1.3.2';
 
 // Keep these identifiers stable: they contain existing users' saved folder
 // handles and connection settings. Changing them would look like data loss.

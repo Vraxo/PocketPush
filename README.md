@@ -1,6 +1,6 @@
 # PocketPush
 
-**Current release: 1.3.1** — modular PWA source, HTTPS-encrypted local transfers, live byte-level progress, and a one-time pairing-key rotation utility.
+**Current release: 1.3.2** — modular PWA source, HTTPS-encrypted local transfers, live byte-level progress, and a one-time pairing-key rotation utility.
 
 PocketPush is a deliberately simple Android-to-Windows folder sender. Pick phone folders once, then send their current contents to one Windows folder with one button.
 
@@ -193,7 +193,7 @@ The interface separates its colour palette from its component style. In **Settin
 - **Colour palette:** Monokai Pro, Material 3 baseline, or System dynamic.
 - **Interface style:** PocketPush's compact, flat components or a Material 3-inspired Android component treatment.
 
-Monokai Pro and the PocketPush style remain the defaults. The Material palette follows the device's light/dark preference. System dynamic reads Windows `AccentColor` and `AccentColorText` in supported installed Chrome or Edge PWAs, then generates a matching Material-inspired tonal palette. This is scoped to installed apps in the initial browser profile; ordinary browser tabs and unsupported browsers fall back to the standard Material 3 palette. Android's wallpaper-derived dynamic accent is not exposed to Chromium web apps because of fingerprinting concerns. Appearance preferences are stored locally in the browser.
+Monokai Pro and the PocketPush style remain the defaults. The Material palette follows the device's light/dark preference. System dynamic reads Windows `AccentColor` and `AccentColorText` in desktop Firefox on Windows (including ordinary tabs), or in supported installed Chrome and Edge PWAs, then generates a matching Material-inspired tonal palette. Chromium browsers still require an installed app; ordinary Chromium tabs and unsupported browsers fall back to the standard Material 3 palette. Firefox privacy settings or other browser configurations that substitute fixed system colours may prevent access to the actual Windows accent. Android's wallpaper-derived dynamic accent is not exposed to Chromium web apps because of fingerprinting concerns. Appearance preferences are stored locally in the browser.
 
 ## Typography
 

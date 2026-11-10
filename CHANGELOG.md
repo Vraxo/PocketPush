@@ -50,3 +50,10 @@
 
 - Remove the ambient decorative elements from the HTML rather than merely hiding them with CSS.
 - Bump the PWA cache so existing installations fetch the fully flat background styles.
+
+
+## 1.2.7 — 2026-11-10
+
+- Restore the self-hosted Space Grotesk variable font, its Latin, Latin Extended, and Vietnamese WOFF2 subsets, and the SIL Open Font License after correcting the release tree.
+- Apply the flat styling directly to the live stylesheets: solid card surfaces, smaller radii, and no gradients, glows, or elevation shadows.
+- Keep the ambient decorative elements removed and refresh the service-worker cache.

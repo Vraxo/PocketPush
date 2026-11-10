@@ -1,6 +1,6 @@
 # PocketPush
 
-**Current release: 1.2.4** — modular PWA source, HTTPS-encrypted local transfers, live byte-level progress, and a one-time pairing-key rotation utility.
+**Current release: 1.2.5** — modular PWA source, HTTPS-encrypted local transfers, live byte-level progress, and a one-time pairing-key rotation utility.
 
 PocketPush is a deliberately simple Android-to-Windows folder sender. Pick phone folders once, then send their current contents to one Windows folder with one button.
 
@@ -185,6 +185,10 @@ Open PocketPush in current Chrome for Android from its HTTPS website or installe
 - No transfer history or deduplication exists by design.
 - Large transfers require the PWA to remain in the foreground and the phone to stay awake. Android may pause background tabs.
 - A local CA must be installed on each Android device that will use the HTTPS receiver. The Windows server certificate is reissued when setup is run again, for example after the PC's LAN IP changes.
+
+## Interface
+
+The interface uses a flat visual treatment: solid surfaces, restrained borders, compact corner radii, and no gradients or elevation shadows.
 
 ## Typography
 

@@ -38,3 +38,9 @@
 - Adopt Space Grotesk as the app's primary variable typeface.
 - Self-host and pre-cache Latin, Latin Extended, and Vietnamese WOFF2 subsets for offline use.
 - Preload the primary Latin subset and include the font's SIL Open Font License.
+
+
+## 1.2.5 — 2026-11-10
+
+- Flatten the interface with solid surfaces, crisp borders, smaller corner radii, and no elevation shadows or decorative gradients.
+- Simplify folder, connection, button, input, progress, and toast styling while preserving the layout and Monokai Pro palette.
